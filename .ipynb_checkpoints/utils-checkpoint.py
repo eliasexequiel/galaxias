@@ -16,3 +16,13 @@ def remove_outlier(df_in, col_name, iqr_factor):
         (df_in[col_name] < fence_low) | (df_in[col_name] > fence_high)
     ]
     return df_inliers, df_outliers
+
+def convert_index(value):
+    if (type(value) == type('string') and len(value) > 5):
+        new_value = value.replace('E+018','')
+        return new_value
+    
+def generate_id(data):
+    for index, row in data.iterrows():
+        data['id'] = convert_index(row.objID)
+    return data
